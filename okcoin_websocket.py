@@ -5,6 +5,7 @@ import json
 import hashlib
 import zlib
 import base64
+import configparser
 
 api_key=''
 secret_key = ""
@@ -147,9 +148,14 @@ def on_close(self,evt):
     print ('DISCONNECT')
 
 if __name__ == "__main__":
+    config = configparser.ConfigParser()
+    config.read('.config')
+    
     url = "wss://real.okcoin.com:10440/websocket/okcoinapi"      #if okcoin.cn  change url wss://real.okcoin.cn:10440/websocket/okcoinapi
-    api_key=''
-    secret_key = ""
+    #api_key='ae68bea9-dd3a-4107-8e95-ce754d4c4c91'
+    #secret_key = "1380E68ED0AF340C34B033A63C29CA5B"
+    api_key = config['real.okcoin.com']['api_key']
+    secret_key = config['real.okcoin.com']['secret_key']
 
     websocket.enableTrace(False)
     if len(sys.argv) < 2:
